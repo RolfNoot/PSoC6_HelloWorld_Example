@@ -38,4 +38,8 @@ Visual Studio Code Project
    * If the project wasn't initialized before, it will ask which programmer/debugger to use.
 1. Click `Build` or `Build-And-Launch` to build (and launch) your project.
 
+
+## Notes
+1. PSoC Creator is needed for the routing / system setup. A Windows environment is required to run PSoC Creator. PSoC Creator is only needed for the chip configuration (often a one-time setup).
+
 Enjoy!
