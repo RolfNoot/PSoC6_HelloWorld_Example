@@ -1,0 +1,16 @@
+{
+    "updateFiles": [
+        "meson.build",
+        "cross_gcc.build",
+        ".vscode/brd.cfg",
+        ".vscode/launch.json",
+        ".vscode/settings.json",
+        ".vscode/tasks.json",
+        ".vscode/c_cpp_properties.json",
+        ".vscode/project.json"
+    ],
+    "removeFiles": [
+        ".vscode/meson.js",
+        ".vscode/otxC.js"
+    ]
+}

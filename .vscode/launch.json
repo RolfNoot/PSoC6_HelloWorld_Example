@@ -1,0 +1,200 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug CM0",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M0_debug.elf",
+            "servertype": "openocd",
+            "serverpath": "${env:ONETHINX_PACK_LOC}/openocd/bin/openocd",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "numberOfProcessors": 2,
+            "targetProcessor": 0,
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "postLaunchCommands": [
+                "monitor psoc6 reset_halt sysresetreq"
+            ],
+            "overrideResetCommands": [
+                "monitor psoc6 reset_halt sysresetreq"
+            ],
+            "presentation": {
+                "group": "1 Debug"
+            },
+            "svdFile": "${env:ONETHINX_PACK_LOC}/config/svd/psoc6_01.svd",                  // svdFile is optional, it can be very large.
+            "runToEntryPoint": "main",                                             // Halting point at launch start (eg "main" or "Reset_Handler"). Not used for a restart.  
+            "preLaunchTask": "${command:otx-maestro.preLaunch}",                            // otx-maestro.preLaunch will build the project to prevent unmatched source code debugging
+            "showDevDebugOutput": "none",                                                   // Shows output of GDB, helpful when something is not working right
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+        {
+            "name": "Debug CM4",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M4_debug.elf",
+            "servertype": "openocd",
+            "serverpath": "${env:ONETHINX_PACK_LOC}/openocd/bin/openocd",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set ENABLE_ACQUIRE 1",
+                "set ENABLE_CM0 0"
+            ],
+            "postLaunchCommands": [
+                "monitor psoc6 reset_halt sysresetreq"
+            ],
+            "overrideResetCommands": [
+                "monitor psoc6 reset_halt sysresetreq"
+            ],
+            "presentation": {
+                "group": "1 Debug"
+            },
+            "svdFile": "${env:ONETHINX_PACK_LOC}/config/svd/psoc6_01.svd",                  // svdFile is optional, it can be very large.
+            "runToEntryPoint": "main",                                                      // Halting point at launch start. Not used for a restart
+            "preLaunchTask": "${command:otx-maestro.preLaunch}",                            // otx-maestro.preLaunch will build the project to prevent unmatched source code debugging
+            "showDevDebugOutput": "none",                                                   // Shows output of GDB, helpful when something is not working right
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+
+        // When using 'attach', make sure your program is running on the board and that your executable matches
+        // the image in the chip exactly, or else strange things can happen with breakpoint, variables, etc.
+        {
+            "name": "Attach CM0",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M0_debug.elf",
+            "servertype": "openocd",
+            "serverpath": "${env:ONETHINX_PACK_LOC}/openocd/bin/openocd",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set ATTACH 1",
+            ],
+           "presentation": {
+                "group": "2 Attach"
+            },
+            "svdFile": "${env:ONETHINX_PACK_LOC}/config/svd/psoc6_01.svd",                  // svdFile is optional, it can be very large.
+            "showDevDebugOutput": "none",                                                   // Shows output of GDB, helpful when something is not working right
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+        {
+            "name": "Attach CM4",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M4_debug.elf",
+            "servertype": "external",
+            "gdbTarget": "localhost:50001",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set ENABLE_CM0 0",
+                "set ATTACH 1",
+            ],
+            "presentation": {
+                "group": "2 Attach"
+            },
+            "svdFile": "${env:ONETHINX_PACK_LOC}/config/svd/psoc6_01.svd",                  // svdFile is optional, it can be very large.
+            "showDevDebugOutput": "none",                                                   // Shows output of GDB, helpful when something is not working right
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+        {
+            "name": "Erase",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M0_debug.elf",
+            "servertype": "openocd",
+            "serverpath": "${env:ONETHINX_PACK_LOC}/openocd/bin/openocd",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "overrideLaunchCommands": [
+                "mon psoc6 sflash_restrictions 3",                                          // SFLASH writes allowed: 0:None, 1:USER+TOC+KEY, 2:USER+TOC+KEY+NAR, 3:Whole region
+                "mon flash erase_address 0x16000000 0x8000",                                // Whole SFLASH
+               // "mon flash erase_address 0x16000800 0x800",                               // USER
+               // "mon flash erase_address 0x16005A00 0xC00",                               // KEY
+               // "mon flash erase_address 0x16007C00 0x400",                               // TOC2
+                "mon flash erase_sector 0 0x000 0x7FF",                                     // BANK0 = FLASH SECTOR 0x000-0x800 = 0x10000000 - 0x100FFFFF
+                "-gdb-exit"
+                
+            ],
+            "presentation": {
+                "group": "3 ProgramErase"
+            },
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+        {
+            "name": "Progam",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M0_debug.elf",
+            "servertype": "openocd",
+            "serverpath": "${env:ONETHINX_PACK_LOC}/openocd/bin/openocd",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "overrideLaunchCommands": [
+                "mon psoc6 sflash_restrictions 3",                                          // SFLASH writes allowed: 0:None, 1:USER+TOC+KEY, 2:USER+TOC+KEY+NAR, 3:Whole region
+                "monitor program ./build/${workspaceFolderBasename}_M0_debug.elf",
+                "monitor psoc6.dap dpreg 0x04 0x00",
+                "-gdb-exit"
+            ],
+            "presentation": {
+                "group": "3 ProgramErase"
+            },
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        },
+        {
+            "name": "Debug CM4 ",
+            "type": "cortex-gdb",                                                           // Onethinx modified cortex-debug extension
+            "request": "attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/${workspaceFolderBasename}_M4_debug.elf",
+            "servertype": "external",
+            "gdbTarget": "localhost:50001",
+            "searchDir": [ "${env:ONETHINX_PACK_LOC}/openocd/scripts" ],
+            "configFiles": [
+                ".vscode/brd.cfg"
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set ENABLE_CM0 0",
+                "set ATTACH 1",
+            ],
+            "presentation": {
+                "hidden": true,
+                "group": "1 Debug"
+            },
+            "svdFile": "${env:ONETHINX_PACK_LOC}/config/svd/psoc6_01.svd",                  // svdFile is optional, it can be very large.
+            "preLaunchTask": "AttachDelay",                                                 // Attach delayed to make sur the debug server already has started
+            "showDevDebugOutput": "none",                                                   // Shows output of GDB, helpful when something is not working right
+            "showServerOutput": "switch",                                                   // Shows output of the GDB server in the Debug Console
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug CM0 + CM4",
+            "configurations": ["Debug CM0", "Debug CM4 "],
+            "presentation": {
+                "group": "1 Debug"
+            }
+        }
+    ]
+}
