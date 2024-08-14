@@ -41,5 +41,7 @@ Visual Studio Code Project
 
 ## Notes
 1. PSoC Creator is needed for the routing / system setup. A Windows environment is required to run PSoC Creator. PSoC Creator is only needed for the chip configuration (often a one-time setup).
+1. Feedback and Community Involvement: While significant effort has been made to ensure this setup works smoothly, not all possible configurations and platforms could be tested. Therefore, community feedback and contributions are highly encouraged to further improve the tool. Any issues, suggestions, or improvements can be shared within the Infineon developer community.
+1. Disclaimer: Although this setup uses well-tested tools and configurations, the use of it is at your own risk.
 
 Enjoy!
